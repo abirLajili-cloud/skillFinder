@@ -1,0 +1,33 @@
+{
+  "name": "SkillFinder",
+  "version": "1.0.0",
+  "type": "module",
+  "dependencies": {
+    "@sap/cds": "^10"
+  },
+  "devDependencies": {
+    "@cap-js/sqlite": "^3"
+  },
+  "scripts": {
+    "start": "cds-serve",
+    "watch": "cds watch"
+  },
+  "cds": {
+    "requires": {
+      "auth": {
+        "kind": "mocked",
+        "users": {
+          "user@skillfinder.local": {
+            "password": "User123!",
+            "roles": ["User"]
+          },
+          "admin@skillfinder.local": {
+            "password": "Admin123!",
+            "roles": ["Admin"]
+          }
+        }
+      }
+    }
+  },
+  "private": true
+}

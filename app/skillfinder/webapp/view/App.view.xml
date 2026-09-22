@@ -1,0 +1,325 @@
+<mvc:View
+controllerName="skillfinder.controller.App"
+xmlns:mvc="sap.ui.core.mvc"
+xmlns="sap.m"
+xmlns:core="sap.ui.core"
+xmlns:f="sap.ui.layout.form"
+xmlns:fa="sap.f">
+
+<App id="mainApp">
+
+    <!-- LOGIN -->
+
+    <Page
+        id="loginPage"
+        title="SkillFinder">
+
+        <content>
+
+            <VBox
+                class="loginContainer"
+                alignItems="Center"
+                justifyContent="Center">
+
+                <VBox class="loginCard">
+
+                    <Title
+                        text="SkillFinder"
+                        level="H1"/>
+
+                    <Input
+                        value="{app>/user/username}"
+                        placeholder="Utilisateur"/>
+
+                    <Input
+                        value="{app>/user/password}"
+                        type="Password"
+                        placeholder="Mot de passe"/>
+
+                    <Button
+                        text="Connexion"
+                        type="Emphasized"
+                        press=".onLogin"/>
+
+                </VBox>
+
+            </VBox>
+
+        </content>
+
+    </Page>
+
+    <!-- PAGE PRINCIPALE -->
+
+    <Page
+        id="homePage"
+        title="SkillFinder">
+
+        <content>
+
+            <IconTabBar
+                id="mainIconTabBar"
+                selectedKey="profile">
+
+                <!-- PROFIL -->
+
+                <items>
+
+                    <IconTabFilter
+                        key="profile"
+                        text="Profil"
+                        icon="sap-icon://person-placeholder">
+
+                        <VBox class="pageContent">
+
+                            <Panel
+                                headerText="Informations personnelles">
+
+                                <content>
+
+                                    <f:SimpleForm editable="true">
+
+                                        <Label text="Prénom"/>
+                                        <Input value="{app>/profile/firstName}"/>
+
+                                        <Label text="Nom"/>
+                                        <Input value="{app>/profile/lastName}"/>
+
+                                        <Label text="Email"/>
+                                        <Input value="{app>/profile/email}"/>
+
+                                        <Label text="Poste"/>
+                                        <Input value="{app>/profile/jobTitle}"/>
+
+                                        <Label text="Téléphone"/>
+                                        <Input value="{app>/profile/phone}"/>
+
+                                        <Label text="Localisation"/>
+                                        <Input value="{app>/profile/location}"/>
+
+                                        <Label text="Résumé"/>
+                                        <TextArea
+                                            value="{app>/profile/summary}"
+                                            rows="4"/>
+
+                                    </f:SimpleForm>
+
+                                    <Toolbar>
+
+                                        <ToolbarSpacer/>
+
+                                        <Button
+                                            text="Enregistrer"
+                                            type="Emphasized"
+                                            press=".onSaveProfile"/>
+
+                                    </Toolbar>
+
+                                </content>
+
+                            </Panel>
+
+                            <!-- SKILLS -->
+
+                            <Panel
+                                headerText="Compétences">
+
+                                <content>
+
+                                    <HBox>
+
+                                        <Input
+                                            value="{app>/newSkill/name}"
+                                            placeholder="Compétence"/>
+
+                                        <Input
+                                            value="{app>/newSkill/level}"
+                                            placeholder="Niveau"/>
+
+                                        <Input
+                                            value="{app>/newSkill/years}"
+                                            placeholder="Années"/>
+
+                                        <Button
+                                            text="Ajouter"
+                                            press=".onAddSkill"/>
+
+                                    </HBox>
+
+                                    <List
+                                        items="{app>/skills}">
+
+                                        <StandardListItem
+                                            title="{app>name}"
+                                            description="{app>level}"/>
+
+                                    </List>
+
+                                </content>
+
+                            </Panel>
+
+                            <!-- EXPERIENCES -->
+
+                            <Panel
+                                headerText="Expériences">
+
+                                <content>
+
+                                    <f:SimpleForm>
+
+                                        <Label text="Entreprise"/>
+                                        <Input value="{app>/newExperience/company}"/>
+
+                                        <Label text="Rôle"/>
+                                        <Input value="{app>/newExperience/role}"/>
+
+                                        <Label text="Début"/>
+                                        <DatePicker value="{app>/newExperience/startDate}"/>
+
+                                        <Label text="Fin"/>
+                                        <DatePicker value="{app>/newExperience/endDate}"/>
+
+                                        <Label text="Description"/>
+                                        <TextArea value="{app>/newExperience/description}"/>
+
+                                    </f:SimpleForm>
+
+                                    <Button
+                                        text="Ajouter"
+                                        press=".onAddExperience"/>
+
+                                    <List
+                                        items="{app>/experiences}">
+
+                                        <ObjectListItem
+                                            title="{app>role}"
+                                            number="{app>company}"/>
+
+                                    </List>
+
+                                </content>
+
+                            </Panel>
+
+                            <!-- CERTIFICATIONS -->
+
+                            <Panel
+                                headerText="Certifications">
+
+                                <content>
+
+                                    <f:SimpleForm>
+
+                                        <Label text="Nom"/>
+                                        <Input value="{app>/newCertification/name}"/>
+
+                                        <Label text="Organisme"/>
+                                        <Input value="{app>/newCertification/issuer}"/>
+
+                                        <Label text="Date"/>
+                                        <DatePicker value="{app>/newCertification/issueDate}"/>
+
+                                    </f:SimpleForm>
+
+                                    <Button
+                                        text="Ajouter"
+                                        press=".onAddCertification"/>
+
+                                    <List
+                                        items="{app>/certifications}">
+
+                                        <ObjectListItem
+                                            title="{app>name}"
+                                            number="{app>issuer}"/>
+
+                                    </List>
+
+                                </content>
+
+                            </Panel>
+
+                        </VBox>
+
+                    </IconTabFilter>
+
+                    <!-- RECHERCHE -->
+
+                    <IconTabFilter
+                        key="search"
+                        text="Recherche"
+                        icon="sap-icon://search">
+
+                        <VBox class="pageContent">
+
+                            <SearchField
+                                value="{app>/search/text}"
+                                placeholder="Nom, compétence, poste"
+                                search=".onSearch"/>
+
+                            <Input
+                                value="{app>/search/location}"
+                                placeholder="Localisation"/>
+
+                            <Button
+                                text="Rechercher"
+                                type="Emphasized"
+                                press=".onSearch"/>
+
+                            <List
+                                items="{app>/searchResults}">
+
+                                <ObjectListItem
+                                    title="{= ${app>firstName} + ' ' + ${app>lastName} }"
+                                    number="{app>jobTitle}"/>
+
+                            </List>
+
+                        </VBox>
+
+                    </IconTabFilter>
+
+                    <!-- CV -->
+
+                    <IconTabFilter
+                        key="cv"
+                        text="CV"
+                        icon="sap-icon://business-card">
+
+                        <VBox class="pageContent">
+
+                            <Title
+                                text="{= ${app>/profile/firstName} + ' ' + ${app>/profile/lastName} }"/>
+
+                            <Text text="{app>/profile/jobTitle}"/>
+
+                            <Text text="{app>/profile/email}"/>
+
+                            <Text text="{app>/profile/location}"/>
+
+                            <Title
+                                text="Résumé"/>
+
+                            <Text
+                                text="{app>/profile/summary}"/>
+
+                            <Button
+                                text="Imprimer PDF"
+                                type="Emphasized"
+                                icon="sap-icon://print"
+                                press=".onPrintCV"/>
+
+                        </VBox>
+
+                    </IconTabFilter>
+
+                </items>
+
+            </IconTabBar>
+
+        </content>
+
+    </Page>
+
+</App>
+</mvc:View>

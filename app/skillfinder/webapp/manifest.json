@@ -1,0 +1,48 @@
+{
+  "_version": "1.65.0",
+  "sap.app": {
+    "id": "skillfinder",
+    "type": "application",
+    "title": "SkillFinder",
+    "description": "Gestion et recherche de profils professionnels",
+    "applicationVersion": {
+      "version": "1.0.0"
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "dependencies": {
+      "minUI5Version": "1.120.0",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.ui.layout": {}
+      }
+    },
+    "rootView": {
+      "viewName": "skillfinder.view.App",
+      "type": "XML",
+      "async": true,
+      "id": "app"
+    },
+    "models": {
+      "app": {
+        "type": "sap.ui.model.json.JSONModel"
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    }
+  }
+}
